@@ -135,7 +135,7 @@ function backticksFor(node, side) {
 }
 
 function isPlainURL(link, parent, index, side) {
-  if (link.attrs.title) return false
+  if (link.attrs.title || !/^\w+:/.test(link.attrs.href)) return false
   let content = parent.child(index + (side < 0 ? -1 : 0))
   if (!content.isText || content.text != link.attrs.href || content.marks[content.marks.length - 1] != link) return false
   if (index == (side < 0 ? 1 : parent.childCount - 1)) return true
@@ -237,6 +237,7 @@ export class MarkdownSerializerState {
   // Render the given node as a block.
   render(node, parent, index) {
     if (typeof parent == "number") throw new Error("!")
+    if (!this.nodes[node.type.name]) throw new Error("Token type `" + node.type.name + "` not supported by Markdown renderer")
     this.nodes[node.type.name](this, node, parent, index)
   }
 
@@ -361,10 +362,10 @@ export class MarkdownSerializerState {
   // :: (string, ?bool) → string
   // Escape the given string so that it can safely appear in Markdown
   // content. If `startOfLine` is true, also escape characters that
-  // has special meaning only at the start of the line.
+  // have special meaning only at the start of the line.
   esc(str, startOfLine) {
     str = str.replace(/[`*\\~\[\]]/g, "\\$&")
-    if (startOfLine) str = str.replace(/^[:#\-*+]/, "\\$&").replace(/^(\d+)\./, "$1\\.")
+    if (startOfLine) str = str.replace(/^[:#\-*+]/, "\\$&").replace(/^(\s*\d+)\./, "$1\\.")
     return str
   }
 

@@ -1,3 +1,53 @@
+## 1.5.0 (2020-07-17)
+
+### New features
+
+Markdown parse specs can now be specified as `noCloseToken`, which will cause the parser to treat them as a single token, rather than a pair of `_open`/`_close` tokens.
+
+## 1.4.5 (2020-05-14)
+
+### Bug fixes
+
+Don't allow hard_break nodes in headings.
+
+## 1.4.4 (2019-12-19)
+
+### Bug fixes
+
+Fix issue that broke parsing ordered lists with a starting number other than 1.
+
+## 1.4.3 (2019-12-17)
+
+### Bug fixes
+
+Don't use short-hand angle bracket syntax when outputting self-linking URLs that are relative.
+
+## 1.4.2 (2019-11-20)
+
+### Bug fixes
+
+Rename ES module files to use a .js extension, since Webpack gets confused by .mjs
+
+## 1.4.1 (2019-11-19)
+
+### Bug fixes
+
+The file referred to in the package's `module` field now is compiled down to ES5.
+
+## 1.4.0 (2019-11-08)
+
+### New features
+
+Add a `module` field to package json file.
+
+## 1.3.2 (2019-10-30)
+
+### Bug fixes
+
+Code blocks in the schema no longer allow marks inside them.
+
+Code blocks are now parsed with `preserveWhiteSpace: full`, preventing removal of newline characters.
+
 ## 1.3.1 (2019-06-08)
 
 ### Bug fixes

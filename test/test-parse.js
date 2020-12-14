@@ -1,9 +1,9 @@
 const {eq} = require("prosemirror-test-builder")
 const ist = require("ist")
 
-const {schema, defaultMarkdownParser, defaultMarkdownSerializer} = require("../dist")
+const {schema, defaultMarkdownParser, defaultMarkdownSerializer} = require("..")
 
-const {doc, blockquote, h1, h2, p, hr, li, ol, ul, pre, em, strong, code, a, link, br, img} = require("./build")
+const {doc, blockquote, h1, h2, p, hr, li, ol, ol3, ul, pre, em, strong, code, a, link, br, img} = require("./build")
 
 function parse(text, doc) {
   ist(defaultMarkdownParser.parse(text), doc, eq)
@@ -41,6 +41,10 @@ describe("markdown", () => {
   it("parses an ordered list", () =>
      same("1. Hello\n\n2. Goodbye\n\n3. Nest\n\n   1. Hey\n\n   2. Aye",
           doc(ol(li(p("Hello")), li(p("Goodbye")), li(p("Nest"), ol(li(p("Hey")), li(p("Aye"))))))))
+
+  it("preserves ordered list start number", () =>
+     same("3. Foo\n\n4. Bar",
+          doc(ol3(li(p("Foo")), li(p("Bar"))))))
 
   it("parses a code block", () =>
      same("Some code:\n\n```\nHere it is\n```\n\nPara",
@@ -85,6 +89,11 @@ describe("markdown", () => {
   it("parses urls", () =>
      same("Link to <https://prosemirror.net>",
           doc(p("Link to ", link({href: "https://prosemirror.net"}, "https://prosemirror.net")))))
+
+  it("correctly serializes relative urls", () => {
+    same("[foo.html](foo.html)",
+         doc(p(link({href: "foo.html"}, "foo.html"))))
+  })
 
   it("parses emphasized urls", () =>
      same("Link to *<https://prosemirror.net>*",

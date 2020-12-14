@@ -1,5 +1,5 @@
 const {builders} = require("prosemirror-test-builder")
-const {schema} = require("../dist")
+const {schema} = require("..")
 
 module.exports = builders(schema, {
   p: {nodeType: "paragraph"},
@@ -8,6 +8,7 @@ module.exports = builders(schema, {
   hr: {nodeType: "horizontal_rule"},
   li: {nodeType: "list_item"},
   ol: {nodeType: "ordered_list"},
+  ol3: {nodeType: "ordered_list", order: 3},
   ul: {nodeType: "bullet_list"},
   pre: {nodeType: "code_block"},
   a: {markType: "link", href: "foo"},

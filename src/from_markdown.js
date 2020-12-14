@@ -90,8 +90,8 @@ function attrs(spec, token) {
 
 // Code content is represented as a single token with a `content`
 // property in Markdown-it.
-function noOpenClose(type) {
-  return type == "code_inline" || type == "code_block" || type == "fence"
+function noCloseToken(spec, type) {
+  return spec.noCloseToken || type == "code_inline" || type == "code_block" || type == "fence"
 }
 
 function withoutTrailingNewline(str) {
@@ -106,7 +106,7 @@ function tokenHandlers(schema, tokens) {
     let spec = tokens[type]
     if (spec.block) {
       let nodeType = schema.nodeType(spec.block)
-      if (noOpenClose(type)) {
+      if (noCloseToken(spec, type)) {
         handlers[type] = (state, tok) => {
           state.openNode(nodeType, attrs(spec, tok))
           state.addText(withoutTrailingNewline(tok.content))
@@ -121,7 +121,7 @@ function tokenHandlers(schema, tokens) {
       handlers[type] = (state, tok) => state.addNode(nodeType, attrs(spec, tok))
     } else if (spec.mark) {
       let markType = schema.marks[spec.mark]
-      if (noOpenClose(type)) {
+      if (noCloseToken(spec, type)) {
         handlers[type] = (state, tok) => {
           state.openMark(markType.create(attrs(spec, tok)))
           state.addText(withoutTrailingNewline(tok.content))
@@ -132,7 +132,7 @@ function tokenHandlers(schema, tokens) {
         handlers[type + "_close"] = state => state.closeMark(markType)
       }
     } else if (spec.ignore) {
-      if (noOpenClose(type)) {
+      if (noCloseToken(spec, type)) {
         handlers[type] = noOp
       } else {
         handlers[type + '_open'] = noOp
@@ -169,16 +169,18 @@ export class MarkdownParser {
   //     `block`, or `mark` must be set.
   //
   // **`block`**`: ?string`
-  //   : This token comes in `_open` and `_close` variants (which are
-  //     appended to the base token name provides a the object
-  //     property), and wraps a block of content. The block should be
-  //     wrapped in a node of the type named to by the property's
-  //     value.
+  //   : This token (unless `noCloseToken` is true) comes in `_open`
+  //     and `_close` variants (which are appended to the base token
+  //     name provides a the object property), and wraps a block of
+  //     content. The block should be wrapped in a node of the type
+  //     named to by the property's value. If the token does not have
+  //     `_open` or `_close`, use the `noCloseToken` option.
   //
   // **`mark`**`: ?string`
-  //   : This token also comes in `_open` and `_close` variants, but
-  //     should add a mark (named by the value) to its content, rather
-  //     than wrapping it in a node.
+  //   : This token (again, unless `noCloseToken` is true) also comes
+  //     in `_open` and `_close` variants, but should add a mark
+  //     (named by the value) to its content, rather than wrapping it
+  //     in a node.
   //
   // **`attrs`**`: ?Object`
   //   : Attributes for the node or mark. When `getAttrs` is provided,
@@ -189,6 +191,12 @@ export class MarkdownParser {
   //     that takes a [markdown-it
   //     token](https://markdown-it.github.io/markdown-it/#Token) and
   //     returns an attribute object.
+  //
+  // **`noCloseToken`**`: ?boolean`
+  //   : Indicates that the [markdown-it
+  //     token](https://markdown-it.github.io/markdown-it/#Token) has
+  //     no `_open` or `_close` for the nodes. This defaults to `true`
+  //     for `code_inline`, `code_block` and `fence`.
   //
   // **`ignore`**`: ?bool`
   //   : When true, ignore content for the matched token.
@@ -222,10 +230,10 @@ export const defaultMarkdownParser = new MarkdownParser(schema, markdownit("comm
   paragraph: {block: "paragraph"},
   list_item: {block: "list_item"},
   bullet_list: {block: "bullet_list"},
-  ordered_list: {block: "ordered_list", getAttrs: tok => ({order: +tok.attrGet("order") || 1})},
+  ordered_list: {block: "ordered_list", getAttrs: tok => ({order: +tok.attrGet("start") || 1})},
   heading: {block: "heading", getAttrs: tok => ({level: +tok.tag.slice(1)})},
-  code_block: {block: "code_block"},
-  fence: {block: "code_block", getAttrs: tok => ({params: tok.info || ""})},
+  code_block: {block: "code_block", noCloseToken: true},
+  fence: {block: "code_block", getAttrs: tok => ({params: tok.info || ""}), noCloseToken: true},
   hr: {node: "horizontal_rule"},
   image: {node: "image", getAttrs: tok => ({
     src: tok.attrGet("src"),
@@ -240,5 +248,5 @@ export const defaultMarkdownParser = new MarkdownParser(schema, markdownit("comm
     href: tok.attrGet("href"),
     title: tok.attrGet("title") || null
   })},
-  code_inline: {mark: "code"}
+  code_inline: {mark: "code", noCloseToken: true}
 })

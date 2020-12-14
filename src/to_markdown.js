@@ -58,6 +58,13 @@ export const defaultMarkdownSerializer = new MarkdownSerializer({
   blockquote(state, node) {
     state.wrapBlock("> ", null, node, () => state.renderContent(node))
   },
+  footnote(state, node) {
+    state.write("::: footnote ")
+    state.text(node.textContent, false)
+    state.ensureNewLine()
+    state.write(":::")
+    state.closeBlock(node)
+  },
   code_block(state, node) {
     state.write("```" + (node.attrs.params || "") + "\n")
     state.text(node.textContent, false)

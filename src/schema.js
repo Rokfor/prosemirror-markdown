@@ -112,6 +112,15 @@ export const schema = new Schema({
       selectable: false,
       parseDOM: [{tag: "br"}],
       toDOM() { return ["br"] }
+    },
+
+    footnote: {
+      content: "(paragraph | text)*",
+      group: "block",
+	    draggable: true,      
+      defining: true,
+      parseDOM: [{tag: "footnote"}],
+      toDOM() { return ["footnote", 0] }
     }
   },
 

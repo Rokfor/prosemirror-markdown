@@ -1,6 +1,7 @@
 import markdownit from "markdown-it"
 import {schema} from "./schema"
 import {Mark} from "prosemirror-model"
+import markdownitcontainer from "markdown-it-container"
 
 function maybeMerge(a, b) {
   if (a.isText && b.isText && Mark.sameSet(a.marks, b.marks))
@@ -116,6 +117,10 @@ function tokenHandlers(schema, tokens) {
         handlers[type + "_open"] = (state, tok) => state.openNode(nodeType, attrs(spec, tok))
         handlers[type + "_close"] = state => state.closeNode()
       }
+    } else if (spec.container) {
+      let nodeType = schema.nodeType(spec.container)
+      handlers["container_" + type + "_open"] = (state, tok) => state.openNode(nodeType, attrs(spec, tok))
+      handlers["container_" + type + "_close"] = state => state.closeNode()
     } else if (spec.node) {
       let nodeType = schema.nodeType(spec.node)
       handlers[type] = (state, tok) => state.addNode(nodeType, attrs(spec, tok))
@@ -225,9 +230,38 @@ export class MarkdownParser {
 // :: MarkdownParser
 // A parser parsing unextended [CommonMark](http://commonmark.org/),
 // without inline HTML, and producing a document in the basic schema.
-export const defaultMarkdownParser = new MarkdownParser(schema, markdownit("commonmark", {html: false}), {
+
+
+
+let md = markdownit("commonmark", {html: false});
+md.use(markdownitcontainer, 'footnote', {
+  validate: function(params) {
+  	console.log('validate', params)
+    return params.trim().match(/^footnote\s+(.*)$/);
+  },
+ 
+  render: function (tokens, idx) {
+  	console.log('render',tokens, idx)
+    var m = tokens[idx].info.trim().match(/^footnote\s+(.*)$/);
+ 
+    if (tokens[idx].nesting === 1) {
+      // opening tag
+      return '<footnote>' + md.utils.escapeHtml(m[1]) + '\n';
+ 
+    } else {
+      // closing tag
+      return '</footnote>\n';
+    }
+  }
+});
+
+
+
+
+export const defaultMarkdownParser = new MarkdownParser(schema, md, {
   blockquote: {block: "blockquote"},
   paragraph: {block: "paragraph"},
+  footnote: {container: "footnote"},
   list_item: {block: "list_item"},
   bullet_list: {block: "bullet_list"},
   ordered_list: {block: "ordered_list", getAttrs: tok => ({order: +tok.attrGet("start") || 1})},

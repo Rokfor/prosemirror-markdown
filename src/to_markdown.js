@@ -61,28 +61,28 @@ export const defaultMarkdownSerializer = new MarkdownSerializer({
   footnote(state, node) {
     console.log(state, node)
     state.write("::: footnote ::\n")
-    state.text(node.textContent, false)
+    state.wrapBlock("", null, node, () => state.renderContent(node))
     state.ensureNewLine()
     state.write(":::")
     state.closeBlock(node)
   },
   comment(state, node) {
     state.write("::: comment ::\n")
-    state.text(node.textContent, false)
+    state.wrapBlock("", null, node, () => state.renderContent(node))
     state.ensureNewLine()
     state.write(":::")
     state.closeBlock(node)
   },
   latex(state, node) {
     state.write("::: latex ::\n")
-    state.text(node.textContent, false)
+    state.wrapBlock("", null, node, () => state.renderContent(node))
     state.ensureNewLine()
     state.write(":::")
     state.closeBlock(node)
   },
   paragraphalternate(state, node) {
     state.write("::: paragraphalternate ::\n")
-    state.text(node.textContent, false)
+    state.wrapBlock("", null, node, () => state.renderContent(node))
     state.ensureNewLine()
     state.write(":::")
     state.closeBlock(node)

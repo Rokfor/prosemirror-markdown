@@ -20,7 +20,7 @@
     "markdown-it": "^10.0.0",
     "markdown-it-deflist": "^2.1.0",
     "markdown-it-directive": "^1.0.1",
-    "markdown-it-directive-webcomponents": "^1.2.0",
+    "markdown-it-directive-webcomponents": "github:Rokfor/markdown-it-directive-webcomponents#master",
     "prosemirror-model": "^1.0.0"
   },
   "devDependencies": {

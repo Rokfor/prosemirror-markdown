@@ -115,7 +115,7 @@ export const schema = new Schema({
     },
 
     footnote: {
-      content: "text*",
+      content: "paragraph+",
       group: "block",
 	    draggable: true,      
       defining: true,
@@ -124,7 +124,7 @@ export const schema = new Schema({
     },
 
     comment: {
-      content: "block+",
+      content: "paragraph+",
       group: "block",
 	    draggable: true,      
       defining: true,
@@ -133,10 +133,11 @@ export const schema = new Schema({
     },
 
     latex: {
-      content: "block+",
+      content: "paragraph+",
       group: "block",
 	    draggable: true,      
       defining: true,
+      code: true,
       parseDOM: [{tag: "latex"}],
       toDOM() { return ["latex", 0] }
     },

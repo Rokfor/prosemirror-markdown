@@ -59,6 +59,7 @@ export const defaultMarkdownSerializer = new MarkdownSerializer({
     state.wrapBlock("> ", null, node, () => state.renderContent(node))
   },
   footnote(state, node) {
+    console.log(state, node)
     state.write("::: footnote ::\n")
     state.text(node.textContent, false)
     state.ensureNewLine()

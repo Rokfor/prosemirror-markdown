@@ -115,7 +115,7 @@ export const schema = new Schema({
     },
 
     footnote: {
-      content: "block+",
+      content: "text*",
       group: "block",
 	    draggable: true,      
       defining: true,

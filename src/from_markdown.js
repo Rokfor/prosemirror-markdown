@@ -3,8 +3,9 @@ import {schema} from "./schema"
 import {Mark} from "prosemirror-model"
 
 //import markdownitcontainer from "markdown-it-container"
-import markdownitdeflist from "markdown-it-deflist"
-import markdownitdirective from "markdown-it-directive-webcomponents";
+import markdownitdeflist from "markdown-it-deflist";
+import markdownitdirective from "markdown-it-directive";
+import markdownitdirectivewebcomponents from "markdown-it-directive-webcomponents";
 
 function maybeMerge(a, b) {
   if (a.isText && b.isText && Mark.sameSet(a.marks, b.marks))
@@ -260,8 +261,8 @@ md.use(markdownitcontainer, 'comment', {
   }
 });*/
 
-
-md.use(markdownitdirective, {
+md.use(markdownitdirective)
+md.use(markdownitdirectivewebcomponent, {
   components: [
     {
       present: 'inline',

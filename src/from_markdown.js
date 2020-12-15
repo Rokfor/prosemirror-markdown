@@ -121,10 +121,10 @@ function tokenHandlers(schema, tokens) {
         handlers[type + "_open"] = (state, tok) => state.openNode(nodeType, attrs(spec, tok))
         handlers[type + "_close"] = state => state.closeNode()
       }
-    } else if (spec.container) {
-      let nodeType = schema.nodeType(spec.container)
-      handlers["container_" + type + "_open"] = (state, tok) => state.openNode(nodeType, attrs(spec, tok))
-      handlers["container_" + type + "_close"] = state => state.closeNode()
+    } else if (spec.component) {
+      let nodeType = schema.nodeType(spec.component)
+      handlers["component" + type + "_open"] = (state, tok) => state.openNode(nodeType, attrs(spec, tok))
+      handlers["component" + type + "_close"] = state => state.closeNode()
     } else if (spec.node) {
       let nodeType = schema.nodeType(spec.node)
       handlers[type] = (state, tok) => state.addNode(nodeType, attrs(spec, tok))
@@ -369,10 +369,10 @@ export const defaultMarkdownParser = new MarkdownParser(schema, md, {
   code_inline: {mark: "code", noCloseToken: true},
   
   // Custom Containers for Rokfor Writer
-  footnote: {block: "footnote"},
-  comment:  {block: "comment"},
-  latex:    {block: "latex"},
-  paragraphalternate:  {container: "paragraphalternate"},
+  footnote: {component: "footnote"},
+  comment:  {component: "comment"},
+  latex:    {component: "latex"},
+  paragraphalternate:  {component: "paragraphalternate"},
 
   // Index:     [in:Indexword]
   // Mark:      [mark:Markerword]

@@ -1,7 +1,10 @@
 import markdownit from "markdown-it"
 import {schema} from "./schema"
 import {Mark} from "prosemirror-model"
-import markdownitcontainer from "markdown-it-container"
+
+//import markdownitcontainer from "markdown-it-container"
+import markdownitdeflist from "markdown-it-deflist"
+import markdownitdirective from "markdown-it-directive-webcomponents";
 
 function maybeMerge(a, b) {
   if (a.isText && b.isText && Mark.sameSet(a.marks, b.marks))
@@ -230,38 +233,118 @@ export class MarkdownParser {
 // :: MarkdownParser
 // A parser parsing unextended [CommonMark](http://commonmark.org/),
 // without inline HTML, and producing a document in the basic schema.
-
-
-
 let md = markdownit("commonmark", {html: false});
-md.use(markdownitcontainer, 'footnote', {
+
+
+// Footnotes
+/*md.use(markdownitcontainer, 'footnote', {
   validate: function(params) {
-  	console.log('validate', params)
     return params.trim().match(/^footnote\s+(.*)$/);
   },
- 
   render: function (tokens, idx) {
-  	console.log('render',tokens, idx)
     var m = tokens[idx].info.trim().match(/^footnote\s+(.*)$/);
- 
-    if (tokens[idx].nesting === 1) {
-      // opening tag
-      return '<footnote>' + md.utils.escapeHtml(m[1]) + '\n';
- 
-    } else {
-      // closing tag
-      return '</footnote>\n';
-    }
+    if (tokens[idx].nesting === 1) return '<footnote>' + md.utils.escapeHtml(m[1]) + '\n';
+    else return '</footnote>\n';
   }
+});
+
+// Comments
+md.use(markdownitcontainer, 'comment', {
+  validate: function(params) {
+    return params.trim().match(/^comment\s+(.*)$/);
+  },
+  render: function (tokens, idx) {
+    var m = tokens[idx].info.trim().match(/^comment\s+(.*)$/);
+    if (tokens[idx].nesting === 1) return '<comment>' + md.utils.escapeHtml(m[1]) + '\n';
+    else return '</comment>\n';
+  }
+});*/
+
+
+md.use(markdownitdirective, {
+  components: [
+    {
+      present: 'inline',
+      name: 'index',
+      tag: 'index',
+      allowedAttrs: [],
+      parseInner: true
+    },
+    {
+      present: 'inline',
+      name: 'mark',
+      tag: 'mark',
+      allowedAttrs: [],
+      parseInner: false
+    },
+    {
+      present: 'inline',
+      name: 'reference',
+      tag: 'reference',
+      allowedAttrs: [],
+      parseInner: false
+    },
+    {
+      present: 'inline',
+      name: 'language',
+      tag: 'language',
+      allowedAttrs: [],
+      parseInner: false
+    },    
+    {
+      present: 'block',
+      name: 'latex',
+      tag: 'latex',
+      allowedAttrs: [],
+      parseInner: false
+    },  
+    {
+      present: 'block',
+      name: 'paragraphalternate',
+      tag: 'paragraphalternate',
+      allowedAttrs: [],
+      parseInner: true
+    },  
+    {
+      present: 'block',
+      name: 'comment',
+      tag: 'comment',
+      allowedAttrs: [],
+      parseInner: true
+    },  
+    {
+      present: 'block',
+      name: 'footnote',
+      tag: 'footnote',
+      allowedAttrs: [],
+      parseInner: true
+    }                  
+  ]
 });
 
 
 
+// Dialogues
+// <dl><dd></dd></dl>
+/*
+Term 1
+
+:   Definition 1
+
+Term 2 with *inline markup*
+
+:   Definition 2
+
+        { some code, part of Definition 2 }
+
+    Third paragraph of definition 2.
+*/
+
+// md.use(markdownitdeflist);  
 
 export const defaultMarkdownParser = new MarkdownParser(schema, md, {
   blockquote: {block: "blockquote"},
   paragraph: {block: "paragraph"},
-  footnote: {container: "footnote"},
   list_item: {block: "list_item"},
   bullet_list: {block: "bullet_list"},
   ordered_list: {block: "ordered_list", getAttrs: tok => ({order: +tok.attrGet("start") || 1})},
@@ -282,5 +365,22 @@ export const defaultMarkdownParser = new MarkdownParser(schema, md, {
     href: tok.attrGet("href"),
     title: tok.attrGet("title") || null
   })},
-  code_inline: {mark: "code", noCloseToken: true}
+  code_inline: {mark: "code", noCloseToken: true},
+  
+  // Custom Containers for Rokfor Writer
+  footnote: {block: "footnote"},
+  comment:  {block: "comment"},
+  latex:    {block: "latex"},
+  paragraphalternate:  {container: "paragraphalternate"},
+
+  // Index:     [in:Indexword]
+  // Mark:      [mark:Markerword]
+  // Page Reference (pointing to Mark): [reference:Markerword]
+  // Language:  [language:]
+
+  index: {mark: "index"},
+  mark: {mark: "mark"},
+  reference: {mark: "reference"},
+  language: {mark: "language"},
+
 })

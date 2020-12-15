@@ -59,12 +59,34 @@ export const defaultMarkdownSerializer = new MarkdownSerializer({
     state.wrapBlock("> ", null, node, () => state.renderContent(node))
   },
   footnote(state, node) {
-    state.write("::: footnote ")
+    state.write("::: footnote ::\n")
     state.text(node.textContent, false)
     state.ensureNewLine()
     state.write(":::")
     state.closeBlock(node)
   },
+  comment(state, node) {
+    state.write("::: comment ::\n")
+    state.text(node.textContent, false)
+    state.ensureNewLine()
+    state.write(":::")
+    state.closeBlock(node)
+  },
+  latex(state, node) {
+    state.write("::: latex ::\n")
+    state.text(node.textContent, false)
+    state.ensureNewLine()
+    state.write(":::")
+    state.closeBlock(node)
+  },
+  paragraphalternate(state, node) {
+    state.write("::: paragraphalternate ::\n")
+    state.text(node.textContent, false)
+    state.ensureNewLine()
+    state.write(":::")
+    state.closeBlock(node)
+  },  
+
   code_block(state, node) {
     state.write("```" + (node.attrs.params || "") + "\n")
     state.text(node.textContent, false)
@@ -127,9 +149,22 @@ export const defaultMarkdownSerializer = new MarkdownSerializer({
         : "](" + state.esc(mark.attrs.href) + (mark.attrs.title ? " " + state.quote(mark.attrs.title) : "") + ")"
     }
   },
-  code: {open(_state, _mark, parent, index) { return backticksFor(parent.child(index), -1) },
-         close(_state, _mark, parent, index) { return backticksFor(parent.child(index - 1), 1) },
-         escape: false}
+  code: {
+    open(_state, _mark, parent, index) { 
+      return backticksFor(parent.child(index), -1) 
+    },
+    close(_state, _mark, parent, index) { 
+      return backticksFor(parent.child(index - 1), 1) 
+    },
+    escape: false
+  },
+
+  index:      {open: ":index[", close: "]", mixable: true, expelEnclosingWhitespace: true},
+  mark:       {open: ":mark[", close: "]", mixable: true, expelEnclosingWhitespace: true},
+  reference:  {open: ":reference[", close: "]", mixable: true, expelEnclosingWhitespace: true},
+  language:   {open: ":language[", close: "]", mixable: true, expelEnclosingWhitespace: true},
+
+
 })
 
 function backticksFor(node, side) {

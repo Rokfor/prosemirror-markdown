@@ -115,12 +115,39 @@ export const schema = new Schema({
     },
 
     footnote: {
-      content: "(paragraph | text)*",
+      content: "(paragraph | block)*",
       group: "block",
 	    draggable: true,      
       defining: true,
       parseDOM: [{tag: "footnote"}],
       toDOM() { return ["footnote", 0] }
+    },
+
+    comment: {
+      content: "(paragraph | block)*",
+      group: "block",
+	    draggable: true,      
+      defining: true,
+      parseDOM: [{tag: "comment"}],
+      toDOM() { return ["comment", 0] }
+    },
+
+    latex: {
+      content: "(paragraph | block)*",
+      group: "block",
+	    draggable: true,      
+      defining: true,
+      parseDOM: [{tag: "latex"}],
+      toDOM() { return ["latex", 0] }
+    },
+
+    paragraphalternate: {
+      content: "(paragraph | block)*",
+      group: "block",
+	    draggable: true,      
+      defining: true,
+      parseDOM: [{tag: "paragraphalternate"}],
+      toDOM() { return ["paragraphalternate", 0] }
     }
   },
 
@@ -152,6 +179,26 @@ export const schema = new Schema({
     code: {
       parseDOM: [{tag: "code"}],
       toDOM() { return ["code"] }
-    }
+    },
+
+    index: {
+      parseDOM: [{tag: "index"}],
+      toDOM() { return ["index"] }
+    },
+    
+    mark: {
+      parseDOM: [{tag: "mark"}],
+      toDOM() { return ["mark"] }
+    },
+    
+    reference: {
+      parseDOM: [{tag: "reference"}],
+      toDOM() { return ["reference"] }
+    },
+
+    language: {
+      parseDOM: [{tag: "language"}],
+      toDOM() { return ["language"] }
+    },    
   }
 })

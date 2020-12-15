@@ -262,7 +262,7 @@ md.use(markdownitcontainer, 'comment', {
 });*/
 
 md.use(markdownitdirective)
-md.use(markdownitdirectivewebcomponent, {
+md.use(markdownitdirectivewebcomponents, {
   components: [
     {
       present: 'inline',

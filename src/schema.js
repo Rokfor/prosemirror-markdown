@@ -121,8 +121,8 @@ export const schema = new Schema({
       isolating: true, 
       parseDOM: [{tag: "footnote"}],
       toDOM() { return ["footnote", 0] }*/
-      group: "inline",
       content: "inline*",
+      group: "inline",
       inline: true,
       atom: true,
       toDOM: () => ["footnote", 0],

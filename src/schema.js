@@ -115,13 +115,20 @@ export const schema = new Schema({
     },
 
     footnote: {
-      content: "paragraph+",
+      /*content: "paragraph+",
       group: "block",
       draggable: true,     
       isolating: true, 
       parseDOM: [{tag: "footnote"}],
-      toDOM() { return ["footnote", 0] }
+      toDOM() { return ["footnote", 0] }*/
+      group: "inline",
+      content: "inline*",
+      inline: true,
+      atom: true,
+      toDOM: () => ["footnote", 0],
+      parseDOM: [{tag: "footnote"}]
     },
+    
 
     comment: {
       content: "paragraph+",
@@ -156,13 +163,15 @@ export const schema = new Schema({
     em: {
       parseDOM: [{tag: "i"}, {tag: "em"},
                  {style: "font-style", getAttrs: value => value == "italic" && null}],
-      toDOM() { return ["em"] }
+      toDOM() { return ["em"] },
+      group: "textformatting"
     },
 
     strong: {
       parseDOM: [{tag: "b"}, {tag: "strong"},
                  {style: "font-weight", getAttrs: value => /^(bold(er)?|[5-9]\d{2,})$/.test(value) && null}],
-      toDOM() { return ["strong"] }
+      toDOM() { return ["strong"] },
+      group: "textformatting"
     },
 
     link: {
@@ -179,27 +188,37 @@ export const schema = new Schema({
 
     code: {
       parseDOM: [{tag: "code"}],
-      toDOM() { return ["code"] }
+      toDOM() { return ["code"] },
+      group: "writer",
+      excludes: "_"
     },
 
     index: {
       parseDOM: [{tag: "index"}],
-      toDOM() { return ["index"] }
+      toDOM() { return ["index"] },
+      group: "writer",
+      excludes: "_"
     },
     
     mark: {
       parseDOM: [{tag: "mark"}],
-      toDOM() { return ["mark"] }
+      toDOM() { return ["mark"] },
+      group: "writer",
+      excludes: "_"
     },
     
     reference: {
       parseDOM: [{tag: "reference"}],
-      toDOM() { return ["reference"] }
+      toDOM() { return ["reference"] },
+      group: "writer",
+      excludes: "_"
     },
 
     language: {
       parseDOM: [{tag: "language"}],
-      toDOM() { return ["language"] }
+      toDOM() { return ["language"] },
+      group: "writer",
+      excludes: "_"
     },    
   }
 })

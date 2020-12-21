@@ -137,6 +137,9 @@ export const defaultMarkdownSerializer = new MarkdownSerializer({
   },
   text(state, node) {
     state.text(node.text)
+  },
+  language(state, node)   {
+    state.write(":language[" + state.esc(node.attrs.language || "") + "]{language=\"" + state.esc(node.attrs.language || "") + "\"} ")
   }
 }, {
   em: {open: "*", close: "*", mixable: true, expelEnclosingWhitespace: true},
@@ -162,17 +165,7 @@ export const defaultMarkdownSerializer = new MarkdownSerializer({
 
   index:      {open: ":index[", close: "]", mixable: true, expelEnclosingWhitespace: true},
   mark:       {open: ":mark[", close: "]", mixable: true, expelEnclosingWhitespace: true},
-  reference:  {open: ":reference[", close: "]", mixable: true, expelEnclosingWhitespace: true},
-  language:   {
-    open: ":language[", 
-    close(state, mark, parent, index) {
-      console.log(mark)
-      return mark.attrs.language ? "]{language=\"" + state.esc(mark.attrs.language) + "\"} " : "] ";
-    },
-    expelEnclosingWhitespace: true
-  },
-
-
+  reference:  {open: ":reference[", close: "]", mixable: true, expelEnclosingWhitespace: true}
 })
 
 function backticksFor(node, side) {

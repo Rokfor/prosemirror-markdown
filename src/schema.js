@@ -156,6 +156,21 @@ export const schema = new Schema({
       isolating: true,      
       parseDOM: [{tag: "paragraphalternate"}],
       toDOM() { return ["paragraphalternate", 0] }
+    },
+
+    language: {
+      content: "inline",
+      group: "writer",
+      inline: true,
+      attrs: {
+        language: {},
+      },
+      isLeaf: true,
+      isAtom: true,
+      parseDOM: [{tag: "language[language]", getAttrs(dom) {
+        return {language: dom.getAttribute("language")}
+      }}],
+      toDOM(node) { return ["language", node.attrs] },
     }
   },
 
@@ -212,20 +227,6 @@ export const schema = new Schema({
       toDOM() { return ["reference"] },
       group: "writer",
       excludes: "_"
-    },
-
-    language: {
-      attrs: {
-        language: {},
-      },
-      isLeaf: true,
-      isAtom: true,
-      parseDOM: [{tag: "language[language]", getAttrs(dom) {
-        return {language: dom.getAttribute("language")}
-      }}],
-      toDOM(node) { return ["language", node.attrs] },
-      group: "writer",
-      excludes: "_"
-    },    
+    }   
   }
 })

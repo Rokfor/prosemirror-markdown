@@ -360,6 +360,9 @@ export const defaultMarkdownParser = new MarkdownParser(schema, md, {
     alt: tok.children[0] && tok.children[0].content || null
   })},
   hardbreak: {node: "hard_break"},
+  language: {node: "language", getAttrs: tok => ({
+    language: tok.attrGet("language")
+  })},
 
   em: {mark: "em"},
   strong: {mark: "strong"},
@@ -382,9 +385,6 @@ export const defaultMarkdownParser = new MarkdownParser(schema, md, {
 
   index: {mark: "index"},
   mark: {mark: "mark"},
-  reference: {mark: "reference"},
-  language: {mark: "language", getAttrs: tok => ({
-    language: tok.attrGet("language")
-  })},
+  reference: {mark: "reference"}
 
 })

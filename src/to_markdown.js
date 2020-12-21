@@ -167,7 +167,7 @@ export const defaultMarkdownSerializer = new MarkdownSerializer({
     open: ":language[", 
     close(state, mark, parent, index) {
       console.log(mark)
-      return mark.attrs.language ? "]{name=" + state.esc(mark.attrs.language) + "}" : "]";
+      return mark.attrs.language ? "]{name=\"" + state.esc(mark.attrs.language) + "\"} " : "] ";
     },
     expelEnclosingWhitespace: true
   },

@@ -163,8 +163,7 @@ export const schema = new Schema({
       attrs: {
         language: {},
       },
-      isLeaf: true,
-      isAtom: true,
+      atom: true,
       parseDOM: [{tag: "language[language]", getAttrs(dom) {
         return {language: dom.getAttribute("language")}
       }}],

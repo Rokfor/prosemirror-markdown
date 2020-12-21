@@ -375,7 +375,7 @@ export const defaultMarkdownParser = new MarkdownParser(schema, md, {
   latex:                {component: "latex"},
   paragraphalternate:   {component: "paragraphalternate"},
   
-  language: {component: "language", getAttrs: tok => ({
+  language: {block: "language", getAttrs: tok => ({
     language: tok.attrGet("language")
   })},
   

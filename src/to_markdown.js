@@ -141,7 +141,7 @@ export const defaultMarkdownSerializer = new MarkdownSerializer({
   language(state, node)   {
     //state.write(" :language[" + state.esc(node.attrs.language || "") + "]{language=\"" + state.esc(node.attrs.language || "") + "\"} ")
     state.write("::: language{language=\"" + state.esc(node.attrs.language || "") + "\"}::\n")
-    state.wrapBlock("", null, node, () => state.renderContent(node))
+    state.write(state.esc(node.attrs.language || ""))
     state.ensureNewLine()
     state.write(":::")
     state.closeBlock(node)

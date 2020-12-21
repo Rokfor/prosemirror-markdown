@@ -283,14 +283,14 @@ md.use(markdownitdirectivewebcomponents, {
       present: 'inline',
       name: 'reference',
       tag: 'reference',
-      allowedAttrs: ['language'],
+      allowedAttrs: [],
       parseInner: false
     },
     {
       present: 'inline',
       name: 'language',
       tag: 'language',
-      allowedAttrs: [],
+      allowedAttrs: ['language'],
       parseInner: false
     },    
     {

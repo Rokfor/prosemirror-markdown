@@ -139,7 +139,7 @@ export const defaultMarkdownSerializer = new MarkdownSerializer({
     state.text(node.text)
   },
   language(state, node)   {
-    state.write(":language[" + state.esc(node.attrs.language || "") + "]{language=\"" + state.esc(node.attrs.language || "") + "\"} ")
+    state.write(" :language[" + state.esc(node.attrs.language || "") + "]{language=\"" + state.esc(node.attrs.language || "") + "\"} ")
   }
 }, {
   em: {open: "*", close: "*", mixable: true, expelEnclosingWhitespace: true},

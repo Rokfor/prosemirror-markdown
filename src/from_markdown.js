@@ -287,7 +287,7 @@ md.use(markdownitdirectivewebcomponents, {
       parseInner: false
     },
     {
-      present: 'inline',
+      present: 'block',
       name: 'language',
       tag: 'language',
       allowedAttrs: ['language'],
@@ -375,7 +375,7 @@ export const defaultMarkdownParser = new MarkdownParser(schema, md, {
   latex:                {component: "latex"},
   paragraphalternate:   {component: "paragraphalternate"},
   
-  language: {block: "language", getAttrs: tok => ({
+  language: {component: "language", getAttrs: tok => ({
     language: tok.attrGet("language")
   })},
   

@@ -159,9 +159,8 @@ export const schema = new Schema({
     },
 
     language: {
-      content: "inline",
-      group: "writer",
       inline: true,
+      group: "inline",
       attrs: {
         language: {},
       },

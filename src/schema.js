@@ -215,8 +215,10 @@ export const schema = new Schema({
     },
 
     language: {
-      parseDOM: [{tag: "language"}],
-      toDOM() { return ["language"] },
+      parseDOM: [{tag: "language[language]", getAttrs(dom) {
+        return {language: dom.getAttribute("language")}
+      }}],
+      toDOM(node) { return ["language", node.attrs] },
       group: "writer",
       excludes: "_"
     },    

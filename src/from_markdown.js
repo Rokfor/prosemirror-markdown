@@ -383,6 +383,8 @@ export const defaultMarkdownParser = new MarkdownParser(schema, md, {
   index: {mark: "index"},
   mark: {mark: "mark"},
   reference: {mark: "reference"},
-  language: {mark: "language"},
+  language: {mark: "language", getAttrs: tok => ({
+    language: tok.attrGet("language")
+  })},
 
 })

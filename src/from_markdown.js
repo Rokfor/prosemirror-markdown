@@ -287,7 +287,7 @@ md.use(markdownitdirectivewebcomponents, {
       parseInner: false
     },
     {
-      present: 'block',
+      present: 'both',
       name: 'language',
       tag: 'language',
       allowedAttrs: ['language'],

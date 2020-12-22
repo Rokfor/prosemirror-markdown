@@ -159,8 +159,7 @@ export const schema = new Schema({
     },
 
     language: {
-      content: "paragraph+", 
-      group: "block",
+      group: "inline",
       attrs: {
         language: {},
       },

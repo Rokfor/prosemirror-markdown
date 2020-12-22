@@ -160,13 +160,14 @@ export const schema = new Schema({
 
     language: {
       group: "block",
+      content: "block+",
       attrs: {
         language: {},
       },
       parseDOM: [{tag: "language[language]", getAttrs(dom) {
         return {language: dom.getAttribute("language")}
       }}],
-      toDOM(node) { return ["language", node.attrs] },
+      toDOM(node) { return ["language", node.attrs, 0] },
     }
   },
 

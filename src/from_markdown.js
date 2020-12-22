@@ -354,6 +354,12 @@ export const defaultMarkdownParser = new MarkdownParser(schema, md, {
   language: {component: "language", getAttrs: tok => ({
     language: tok.attrGet("language")
   })},
+
+  bibliography: {component: "bibliography", getAttrs: tok => ({
+    reference: tok.attrGet("reference"),
+    pre: tok.attrGet("pre"),
+    post: tok.attrGet("post"),
+  })},
   
   // Index:     [in:Indexword]
   // Mark:      [mark:Markerword]

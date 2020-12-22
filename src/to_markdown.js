@@ -138,9 +138,15 @@ export const defaultMarkdownSerializer = new MarkdownSerializer({
     state.text(node.text)
   },
   language(state, node)   {
-    //state.write(" :language[" + state.esc(node.attrs.language || "") + "]{language=\"" + state.esc(node.attrs.language || "") + "\"} ")
     state.write("::: language{language=\"" + state.esc(node.attrs.language || "") + "\"}::\n")
     state.write(state.esc(node.attrs.language || ""))
+    state.ensureNewLine()
+    state.write(":::")
+    state.closeBlock(node)
+  },
+  bibliography(state, node)   {
+    state.write("::: bibliography{post=\"" + state.esc(node.attrs.post || "") + "\" pre=\"" + state.esc(node.attrs.pre || "") + "\" reference=\"" + state.esc(node.attrs.reference || "") + "\"}::\n")
+    state.write(state.esc(node.attrs.reference || ""))
     state.ensureNewLine()
     state.write(":::")
     state.closeBlock(node)

@@ -166,6 +166,26 @@ export const schema = new Schema({
         return {language: dom.getAttribute("language")}
       }}],
       toDOM(node) { return ["language", {"language": node.attrs.language}, 0] },
+    },
+
+    bibliography: {
+      content: "block+",
+      group: "block",
+      attrs: {
+        reference: {},
+        pre: {},
+        post: {}
+      },
+      atom: true,
+      isLeaf: true,
+      parseDOM: [{tag: "bibliography", getAttrs(dom) {
+        return {
+          reference: dom.getAttribute("reference"),
+          pre: dom.getAttribute("pre"),
+          post: dom.getAttribute("post")
+        }
+      }}],
+      toDOM(node) { return ["bibliography", {"reference": node.attrs.reference, "pre": node.attrs.pre, "post": node.attrs.post}, 0] },
     }
   },
 

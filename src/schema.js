@@ -167,7 +167,7 @@ export const schema = new Schema({
       parseDOM: [{tag: "language[language]", getAttrs(dom) {
         return {language: dom.getAttribute("language")}
       }}],
-      toDOM(node) { return ["language", node.attrs] },
+      toDOM(node) { return ["language", {"language": node.attrs.language}, 0] },
     }
   },
 

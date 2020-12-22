@@ -115,9 +115,7 @@ export const schema = new Schema({
     },
 
     footnote: {
-      content: "inline*",
       group: "inline",
-      draggable: true,     
       parseDOM: [{tag: "footnote"}],
       toDOM() { return ["footnote", 0] }
       /*content: "inline*",

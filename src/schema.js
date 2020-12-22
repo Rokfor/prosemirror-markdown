@@ -115,8 +115,9 @@ export const schema = new Schema({
     },
 
     footnote: {
-      inline: true,
-      group: "inline",
+      content: "paragraph+",
+      group: "block",
+      draggable: true,     
       parseDOM: [{tag: "footnote"}],
       toDOM() { return ["footnote", 0] }
       /*content: "inline*",
@@ -221,6 +222,13 @@ export const schema = new Schema({
       toDOM() { return ["reference"] },
       group: "writer",
       excludes: "_"
-    }   
+    }, 
+    
+    reference: {
+      parseDOM: [{tag: "fn"}],
+      toDOM() { return ["fn"] },
+      group: "writer",
+      excludes: ""
+    } 
   }
 })

@@ -59,16 +59,11 @@ export const defaultMarkdownSerializer = new MarkdownSerializer({
     state.wrapBlock("> ", null, node, () => state.renderContent(node))
   },
   footnote(state, node) {
-/*    state.write("::: footnote ::\n")
+    state.write("::: footnote ::\n")
     state.wrapBlock("", null, node, () => state.renderContent(node))
     state.ensureNewLine()
     state.write(":::")
-    state.closeBlock(node)*/
-    state.write("::footnote ")
-    state.wrapBlock("", null, node, () => state.renderContent(node))
-    state.write(":: ")
     state.closeBlock(node)
-
   },
   comment(state, node) {
     state.write("::: comment ::\n")
@@ -174,7 +169,9 @@ export const defaultMarkdownSerializer = new MarkdownSerializer({
 
   index:      {open: ":index[", close: "]", mixable: true, expelEnclosingWhitespace: true},
   mark:       {open: ":mark[", close: "]", mixable: true, expelEnclosingWhitespace: true},
-  reference:  {open: ":reference[", close: "]", mixable: true, expelEnclosingWhitespace: true}
+  reference:  {open: ":reference[", close: "]", mixable: true, expelEnclosingWhitespace: true},
+  fn:         {open: ":fn[", close: "]", mixable: true, expelEnclosingWhitespace: true}
+
 })
 
 function backticksFor(node, side) {

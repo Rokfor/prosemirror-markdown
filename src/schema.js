@@ -199,36 +199,39 @@ export const schema = new Schema({
     code: {
       parseDOM: [{tag: "code"}],
       toDOM() { return ["code"] },
-      group: "writer",
-      excludes: "_"
+      group: "textformatting"
     },
 
     index: {
       parseDOM: [{tag: "index"}],
       toDOM() { return ["index"] },
       group: "writer",
-      excludes: "_"
+      excludes: "_",
+      inclusive: false
     },
     
     mark: {
       parseDOM: [{tag: "mark"}],
       toDOM() { return ["mark"] },
       group: "writer",
-      excludes: "_"
+      excludes: "_",
+      inclusive: false
     },
     
     reference: {
       parseDOM: [{tag: "reference"}],
       toDOM() { return ["reference"] },
       group: "writer",
-      excludes: "_"
+      excludes: "_",
+      inclusive: false
     }, 
     
     fn: {
       parseDOM: [{tag: "fn"}],
-      toDOM() { return ["fn"] },
+      toDOM() { return ["fn", 1] },
       group: "writer",
-      excludes: ""
+      excludes: "",
+      inclusive: false
     } 
   }
 })

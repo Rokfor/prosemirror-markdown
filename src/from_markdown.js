@@ -360,10 +360,10 @@ export const defaultMarkdownParser = new MarkdownParser(schema, md, {
   // Page Reference (pointing to Mark): [reference:Markerword]
   // Language:  [language:]
 
-  index: {mark: "index"},
-  mark: {mark: "mark"},
-  reference: {mark: "reference"},
-  fn: {mark: "fn"}
+  index:        {mark: "index"},
+  mark:         {mark: "mark"},
+  reference:    {mark: "reference"},
+  fn:           {mark: "fn"}
 
 
 })

@@ -238,30 +238,6 @@ export class MarkdownParser {
 let md = markdownit("commonmark", {html: false});
 
 
-// Footnotes
-/*md.use(markdownitcontainer, 'footnote', {
-  validate: function(params) {
-    return params.trim().match(/^footnote\s+(.*)$/);
-  },
-  render: function (tokens, idx) {
-    var m = tokens[idx].info.trim().match(/^footnote\s+(.*)$/);
-    if (tokens[idx].nesting === 1) return '<footnote>' + md.utils.escapeHtml(m[1]) + '\n';
-    else return '</footnote>\n';
-  }
-});
-
-// Comments
-md.use(markdownitcontainer, 'comment', {
-  validate: function(params) {
-    return params.trim().match(/^comment\s+(.*)$/);
-  },
-  render: function (tokens, idx) {
-    var m = tokens[idx].info.trim().match(/^comment\s+(.*)$/);
-    if (tokens[idx].nesting === 1) return '<comment>' + md.utils.escapeHtml(m[1]) + '\n';
-    else return '</comment>\n';
-  }
-});*/
-
 md.use(markdownitdirective)
 md.use(markdownitdirectivewebcomponents, {
   components: [
@@ -315,7 +291,7 @@ md.use(markdownitdirectivewebcomponents, {
       parseInner: true
     },  
     {
-      present: 'block',
+      present: 'inline',
       name: 'footnote',
       tag: 'footnote',
       allowedAttrs: [],
@@ -342,7 +318,7 @@ Term 2 with *inline markup*
     Third paragraph of definition 2.
 */
 
-// md.use(markdownitdeflist);  
+md.use(markdownitdeflist);  
 
 export const defaultMarkdownParser = new MarkdownParser(schema, md, {
   blockquote: {block: "blockquote"},

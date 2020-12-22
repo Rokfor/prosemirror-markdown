@@ -355,11 +355,7 @@ export const defaultMarkdownParser = new MarkdownParser(schema, md, {
     language: tok.attrGet("language")
   })},
 
-  bibliography: {component: "bibliography", getAttrs: tok => ({
-    reference: tok.attrGet("reference"),
-    pre: tok.attrGet("pre"),
-    post: tok.attrGet("post"),
-  })},
+  
   
   // Index:     [in:Indexword]
   // Mark:      [mark:Markerword]
@@ -369,7 +365,12 @@ export const defaultMarkdownParser = new MarkdownParser(schema, md, {
   index:        {mark: "index"},
   mark:         {mark: "mark"},
   reference:    {mark: "reference"},
-  fn:           {mark: "fn"}
+  fn:           {mark: "fn"},
+  bibliography: {mark: "bibliography", getAttrs: tok => ({
+                  reference: tok.attrGet("reference"),
+                  pre: tok.attrGet("pre"),
+                  post: tok.attrGet("post"),
+                })},
 
 
 })

@@ -143,13 +143,6 @@ export const defaultMarkdownSerializer = new MarkdownSerializer({
     state.ensureNewLine()
     state.write(":::")
     state.closeBlock(node)
-  },
-  bibliography(state, node)   {
-    state.write("::: bibliography{post=\"" + state.esc(node.attrs.post || "") + "\" pre=\"" + state.esc(node.attrs.pre || "") + "\" reference=\"" + state.esc(node.attrs.reference || "") + "\"}::\n")
-    state.write(state.esc(node.attrs.reference || ""))
-    state.ensureNewLine()
-    state.write(":::")
-    state.closeBlock(node)
   }
 }, {
   em: {open: "*", close: "*", mixable: true, expelEnclosingWhitespace: true},
@@ -172,12 +165,20 @@ export const defaultMarkdownSerializer = new MarkdownSerializer({
     },
     escape: false
   },
-
   index:      {open: ":index[", close: "]", mixable: true, expelEnclosingWhitespace: true},
   mark:       {open: ":mark[", close: "]", mixable: true, expelEnclosingWhitespace: true},
   reference:  {open: ":reference[", close: "]", mixable: true, expelEnclosingWhitespace: true},
-  fn:         {open: ":fn[", close: "]", mixable: true, expelEnclosingWhitespace: true}
-
+  fn:         {open: ":fn[", close: "]", mixable: true, expelEnclosingWhitespace: true},
+  bibliography: {
+    open(_state, mark, parent, index) {
+      return ":bibliography[" + state.esc(node.attrs.reference || "") + ", " + state.esc(node.attrs.pre || "") + ", " + state.esc(node.attrs.post || "") + "]"
+    },
+    close(state, mark, parent, index) {
+      return "{post=\"" + state.esc(node.attrs.post || "") + "\" pre=\"" + state.esc(node.attrs.pre || "") + "\" reference=\"" + state.esc(node.attrs.reference || "") + "\"}"
+    },
+    mixable: false, 
+    expelEnclosingWhitespace: true
+  }
 })
 
 function backticksFor(node, side) {

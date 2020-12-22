@@ -143,7 +143,6 @@ export const schema = new Schema({
       content: "paragraph+",
       group: "block",
 	    draggable: true,      
-      code: true,
       isolating: true,
       parseDOM: [{tag: "latex"}],
       toDOM() { return ["latex", 0] }

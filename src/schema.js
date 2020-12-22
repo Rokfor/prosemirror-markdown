@@ -224,7 +224,7 @@ export const schema = new Schema({
       excludes: "_"
     }, 
     
-    reference: {
+    fn: {
       parseDOM: [{tag: "fn"}],
       toDOM() { return ["fn"] },
       group: "writer",

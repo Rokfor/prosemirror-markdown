@@ -171,10 +171,10 @@ export const defaultMarkdownSerializer = new MarkdownSerializer({
   fn:         {open: ":fn[", close: "]", mixable: true, expelEnclosingWhitespace: true},
   bibliography: {
     open(state, mark, parent, index) {
-      return ":bibliography[" + state.esc(mark.attrs.reference || "") + ", " + state.esc(mark.attrs.pre || "") + ", " + state.esc(mark.attrs.post || "") + "]"
+      return ":: bibliography{" + state.esc(mark.attrs.reference || "") + ", " + state.esc(mark.attrs.pre || "") + ", " + state.esc(mark.attrs.post || "") + "}"
     },
     close(state, mark, parent, index) {
-      return "{post=\"" + state.esc(mark.attrs.post || "") + "\" pre=\"" + state.esc(mark.attrs.pre || "") + "\" reference=\"" + state.esc(mark.attrs.reference || "") + "\"}"
+      return ":: "
     },
     mixable: false, 
     expelEnclosingWhitespace: true

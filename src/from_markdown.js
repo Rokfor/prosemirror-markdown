@@ -268,7 +268,14 @@ md.use(markdownitdirectivewebcomponents, {
       tag: 'language',
       allowedAttrs: ['language'],
       parseInner: true
-    },    
+    },  
+    {
+      present: 'inline',
+      name: 'bibliography',
+      tag: 'bibliography',
+      allowedAttrs: ['reference', 'pre', 'post'],
+      parseInner: true
+    },       
     {
       present: 'block',
       name: 'latex',

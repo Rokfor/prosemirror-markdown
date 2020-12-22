@@ -291,14 +291,14 @@ md.use(markdownitdirectivewebcomponents, {
       name: 'language',
       tag: 'language',
       allowedAttrs: ['language'],
-      parseInner: false
+      parseInner: true
     },    
     {
       present: 'block',
       name: 'latex',
       tag: 'latex',
       allowedAttrs: [],
-      parseInner: false
+      parseInner: true
     },  
     {
       present: 'block',

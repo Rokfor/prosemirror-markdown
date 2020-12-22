@@ -143,6 +143,7 @@ export const schema = new Schema({
       content: "paragraph+",
       group: "block",
 	    draggable: true,      
+      code: true,
       isolating: true,
       parseDOM: [{tag: "latex"}],
       toDOM() { return ["latex", 0] }
@@ -159,14 +160,14 @@ export const schema = new Schema({
 
     language: {
       group: "block",
-      content: "block+",
       attrs: {
         language: {},
       },
+      atom: true,
       parseDOM: [{tag: "language[language]", getAttrs(dom) {
         return {language: dom.getAttribute("language")}
       }}],
-      toDOM(node) { return ["language", node.attrs, 0] },
+      toDOM(node) { return ["language", node.attrs] },
     }
   },
 

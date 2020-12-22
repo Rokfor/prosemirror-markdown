@@ -291,7 +291,7 @@ md.use(markdownitdirectivewebcomponents, {
       parseInner: true
     },  
     {
-      present: 'inline',
+      present: 'block',
       name: 'footnote',
       tag: 'footnote',
       allowedAttrs: [],
@@ -362,6 +362,8 @@ export const defaultMarkdownParser = new MarkdownParser(schema, md, {
 
   index: {mark: "index"},
   mark: {mark: "mark"},
-  reference: {mark: "reference"}
+  reference: {mark: "reference"},
+  fn: {mark: "fn"}
+
 
 })

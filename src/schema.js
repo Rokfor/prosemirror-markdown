@@ -118,7 +118,6 @@ export const schema = new Schema({
       content: "paragraph+",
       group: "block",
       draggable: true,     
-      isolating: true, 
       parseDOM: [{tag: "footnote"}],
       toDOM() { return ["footnote", 0] }
       /*content: "inline*",
@@ -134,7 +133,6 @@ export const schema = new Schema({
       content: "paragraph+",
       group: "block",
       draggable: true,
-      isolating: true,      
       parseDOM: [{tag: "comment"}],
       toDOM() { return ["comment", 0] }
     },
@@ -144,7 +142,6 @@ export const schema = new Schema({
       group: "block",
 	    draggable: true,      
       code: true,
-      isolating: true,
       parseDOM: [{tag: "latex"}],
       toDOM() { return ["latex", 0] }
     },
@@ -153,7 +150,6 @@ export const schema = new Schema({
       content: "block+",
       group: "block",
       draggable: true,
-      isolating: true,      
       parseDOM: [{tag: "paragraphalternate"}],
       toDOM() { return ["paragraphalternate", 0] }
     },

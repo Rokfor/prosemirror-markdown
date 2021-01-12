@@ -169,12 +169,22 @@ export const defaultMarkdownSerializer = new MarkdownSerializer({
   mark:       {open: ":mark[", close: "]", mixable: true, expelEnclosingWhitespace: true},
   reference:  {open: ":reference[", close: "]", mixable: true, expelEnclosingWhitespace: true},
   fn:         {open: ":fn[", close: "]", mixable: true, expelEnclosingWhitespace: true},
-  bibliography: {
+  /*bibliography: {
     open(state, mark, parent, index) {
-      return " ::bibliography{post=\"" + state.esc(mark.attrs.post || "") + "\" pre=\"" + state.esc(mark.attrs.pre || "") + "\" reference=\"" + state.esc(mark.attrs.reference || "") + "\"}"
+      return " :: bibliography {post=\"" + state.esc(mark.attrs.post || "") + "\" pre=\"" + state.esc(mark.attrs.pre || "") + "\" reference=\"" + state.esc(mark.attrs.reference || "") + "\"}"
     },
     close(state, mark, parent, index) {
       return " :: "
+    },
+    mixable: false, 
+    expelEnclosingWhitespace: true
+  }*/
+  bibliography: {
+    open(state, mark, parent, index) {
+      return ":bibliography["
+    },
+    close(state, mark, parent, index) {
+      return "]{post=\"" + state.esc(mark.attrs.post || "") + "\" pre=\"" + state.esc(mark.attrs.pre || "") + "\" reference=\"" + state.esc(mark.attrs.reference || "") + "\"}"
     },
     mixable: false, 
     expelEnclosingWhitespace: true

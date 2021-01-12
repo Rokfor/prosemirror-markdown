@@ -281,7 +281,7 @@ md.use(markdownitdirectivewebcomponents, {
       name: 'bibliography',
       tag: 'bibliography',
       allowedAttrs: ['reference', 'pre', 'post'],
-      parseInner: true
+      parseInner: false
     },       
     {
       present: 'block',

@@ -4,7 +4,7 @@ import {Mark} from "prosemirror-model"
 
 //import markdownitcontainer from "markdown-it-container"
 import markdownitdeflist from "markdown-it-deflist";
-import markdownitdirective from "markdown-it-directive";
+//import markdownitdirective from "markdown-it-directive";
 import markdownitdirectivewebcomponents from "markdown-it-directive-webcomponents";
 
 function maybeMerge(a, b) {
@@ -238,7 +238,7 @@ export class MarkdownParser {
 let md = markdownit("commonmark", {html: false});
 
 
-md.use(markdownitdirective)
+//md.use(markdownitdirective)
 md.use(markdownitdirectivewebcomponents, {
   components: [
     {
@@ -255,6 +255,13 @@ md.use(markdownitdirectivewebcomponents, {
       allowedAttrs: [],
       parseInner: false
     },
+    {
+      present: 'inline',
+      name: 'fn',
+      tag: 'fn',
+      allowedAttrs: [],
+      parseInner: false
+    },    
     {
       present: 'inline',
       name: 'reference',

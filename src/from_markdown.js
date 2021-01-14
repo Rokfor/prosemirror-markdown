@@ -53,7 +53,6 @@ class MarkdownParseState {
   }
 
   parseTokens(toks) {
-    console.log('parseTokens', toks, this.tokenHandlers)
     for (let i = 0; i < toks.length; i++) {
       let tok = toks[i]
       let handler = this.tokenHandlers[tok.type]

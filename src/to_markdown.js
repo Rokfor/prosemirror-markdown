@@ -129,9 +129,10 @@ export const defaultMarkdownSerializer = new MarkdownSerializer({
     state.ensureNewLine()
     state.closeBlock(node)
   },
+  /*
   description_value(state, node) {
     state.renderList(node, "  ", () => " ")
-  },
+  },*/
 
   paragraph(state, node) {
     state.renderInline(node)

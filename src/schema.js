@@ -100,13 +100,13 @@ export const schema = new Schema({
       toDOM() { return ["dt", 0] }
     },
 
-    description_value: {
+    /*description_value: {
       content: "block*",
       group: "descriptionblock",
       defining: true,
       parseDOM: [{tag: "dd"}],
       toDOM() { return ["dd", 0] }
-    },
+    },*/
 
     text: {
       group: "inline"

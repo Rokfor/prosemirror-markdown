@@ -21,7 +21,7 @@
     "markdown-it-deflist": "^2.1.0",
     "markdown-it-directive": "^1.0.1",
     "markdown-it-directive-webcomponents": "github:Rokfor/markdown-it-directive-webcomponents#master",
-    "prosemirror-model": "^1.13.1"
+    "prosemirror-model": "^1.13.3"
   },
   "devDependencies": {
     "@rollup/plugin-buble": "^0.21.3",
@@ -30,7 +30,7 @@
     "mocha": "^3.0.2",
     "prosemirror-test-builder": "^1.0.0",
     "punycode": "^1.4.0",
-    "rollup": "^2.36.1"
+    "rollup": "^2.40.0"
   },
   "scripts": {
     "test": "mocha test/test-*.js",

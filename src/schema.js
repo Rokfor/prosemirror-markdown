@@ -101,7 +101,7 @@ export const schema = new Schema({
     },*/
 
     description_value: {
-      content: "inline*",
+      content: "paragraph block*",
       defining: true,
       parseDOM: [{tag: "dd"}, {tag: "dt"}],
       toDOM(node) { console.log('description_value', node); return ["dd", 0] }

@@ -85,7 +85,7 @@ export const schema = new Schema({
 
 
     description_list: {
-      content: "descriptionblock+",
+      content: "(description_term | description_value)*",
       group: "block",
       attrs: {tight: {default: false}},
       parseDOM: [{tag: "dl"}],
@@ -94,7 +94,7 @@ export const schema = new Schema({
 
     description_term: {
       content: "inline*",
-      group: "descriptionblock",
+      group: "block",
       defining: true,
       parseDOM: [{tag: "dt"}],
       toDOM() { return ["dt", 0] }
@@ -102,7 +102,7 @@ export const schema = new Schema({
 
     description_value: {
       content: "inline*",
-      group: "descriptionblock",
+      group: "block",
       defining: true,
       parseDOM: [{tag: "dd"}],
       toDOM(node) { console.log('description_value', node); return ["dd", 0] }

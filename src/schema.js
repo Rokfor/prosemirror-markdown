@@ -87,20 +87,19 @@ export const schema = new Schema({
     description_list: {
       content: "(description_term description_value)+",
       group: "block",
-      defining: true,
       parseDOM: [{tag: "dl"}],
       toDOM(node) { return ["dl", 0] }
     },
 
     description_term: {
-      content: "paragraph block*",
+      content: "paragraph",
       defining: true,
       parseDOM: [{tag: "dt"}],
       toDOM() { return ["dt", 0] }
     },
 
     description_value: {
-      content: "paragraph block*",
+      content: "paragraph",
       defining: true,
       parseDOM: [{tag: "dd"}],
       toDOM(node) { console.log('description_value', node); return ["dd", 0] }

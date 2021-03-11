@@ -85,7 +85,7 @@ export const schema = new Schema({
 
 
     description_list: {
-      content: "descriptions+",
+      content: "list_item+",
       group: "block",
       defining: true,
       parseDOM: [{tag: "dl"}],

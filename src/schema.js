@@ -89,7 +89,7 @@ export const schema = new Schema({
       defining: true,
       group: "block",
       parseDOM: [{tag: "dl"}],
-      toDOM(node) { return ["dl", 0] }
+      toDOM() { return ["dl", 0] }
     },
 
     description_term: {
@@ -103,7 +103,7 @@ export const schema = new Schema({
       content: "inline*",
       defining: true,
       parseDOM: [{tag: "dd"}],
-      toDOM(node) { console.log('description_value', node); return ["dd", 0] }
+      toDOM() {return ["dd", 0] }
     },
 
     text: {

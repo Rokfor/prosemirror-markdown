@@ -84,22 +84,22 @@ export const schema = new Schema({
     },
 
 
-    description_list: {
-      content: "(description_term description_value)+",
+    dl: {
+      content: "(dt dd)+",
       defining: true,
       group: "block",
       parseDOM: [{tag: "dl"}],
       toDOM() { return ["dl", 0] }
     },
 
-    description_term: {
+    dt: {
       content: "inline*",
       defining: true,
       parseDOM: [{tag: "dt"}],
       toDOM() { return ["dt", 0] }
     },
 
-    description_value: {
+    dd: {
       content: "inline*",
       defining: true,
       parseDOM: [{tag: "dd"}],

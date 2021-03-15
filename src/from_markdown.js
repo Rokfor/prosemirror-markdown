@@ -350,9 +350,9 @@ export const defaultMarkdownParser = new MarkdownParser(schema, md, {
   })},
   hardbreak: {node: "hard_break"},
 
-  description_list: {block: "description_list"},
-  description_value: {block: "description_value"},
-  description_term: {block: "description_term"},
+  dl: {block: "description_list"},
+  dd: {block: "description_value"},
+  dt: {block: "description_term"},
   
   em: {mark: "em"},
   strong: {mark: "strong"},

@@ -349,6 +349,10 @@ export const defaultMarkdownParser = new MarkdownParser(schema, md, {
     alt: tok.children[0] && tok.children[0].content || null
   })},
   hardbreak: {node: "hard_break"},
+
+  description_list: {block: "description_list"},
+  description_value: {block: "description_value"},
+  description_term: {block: "description_term"},
   
   em: {mark: "em"},
   strong: {mark: "strong"},

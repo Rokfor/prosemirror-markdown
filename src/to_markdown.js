@@ -127,12 +127,10 @@ export const defaultMarkdownSerializer = new MarkdownSerializer({
   },
   dt(state, node) {
     state.wrapBlock("", null, node, () => state.renderContent(node))
-    state.ensureNewLine()
     state.closeBlock(node)
   },
   dd(state, node) {
     state.wrapBlock(":   ", null, node, () => state.renderContent(node))
-    state.ensureNewLine()
     state.closeBlock(node)
   },    
 

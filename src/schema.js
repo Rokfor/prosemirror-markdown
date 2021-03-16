@@ -102,6 +102,7 @@ export const schema = new Schema({
     dd: {
       content: "paragraph block*",
       defining: true,
+      attrs: {tight: {default: true}},
       parseDOM: [{tag: "dd"}],
       toDOM() { console.log('todom dd'); return ["dd", 0] }
     },

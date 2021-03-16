@@ -108,7 +108,6 @@ function noOp() {}
 function tokenHandlers(schema, tokens) {
   let handlers = Object.create(null)
   for (let type in tokens) {
-    console.log('parse token', tokens)
     let spec = tokens[type]
     if (spec.block) {
       let nodeType = schema.nodeType(spec.block)
@@ -226,7 +225,10 @@ export class MarkdownParser {
   // rules.
   parse(text) {
     let state = new MarkdownParseState(this.schema, this.tokenHandlers), doc
-    state.parseTokens(this.tokenizer.parse(text, {}))
+    let tokenized = this.tokenizer.parse(text, {})
+    console.log('tokenized', tokenized)
+    state.parseTokens(tokenized)
+    console.log('state', state)    
     do { doc = state.closeNode() } while (state.stack.length)
     return doc
   }

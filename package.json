@@ -30,7 +30,7 @@
     "mocha": "^3.0.2",
     "prosemirror-test-builder": "^1.0.0",
     "punycode": "^1.4.0",
-    "rollup": "^2.41.3"
+    "rollup": "^2.41.4"
   },
   "scripts": {
     "test": "mocha test/test-*.js",

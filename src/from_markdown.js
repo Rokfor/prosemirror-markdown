@@ -108,6 +108,7 @@ function noOp() {}
 function tokenHandlers(schema, tokens) {
   let handlers = Object.create(null)
   for (let type in tokens) {
+    console.log('parse token', tokens)
     let spec = tokens[type]
     if (spec.block) {
       let nodeType = schema.nodeType(spec.block)

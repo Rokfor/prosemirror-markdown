@@ -89,21 +89,21 @@ export const schema = new Schema({
       defining: true,
       group: "block",
       parseDOM: [{tag: "dl"}],
-      toDOM() { return ["dl", 0] }
+      toDOM() { console.log('todom dl'); return ["dl", 0] }
     },
 
     dt: {
       content: "inline*",
       defining: true,
       parseDOM: [{tag: "dt"}],
-      toDOM() { return ["dt", 0] }
+      toDOM() { console.log('todom dt'); return ["dt", 0] }
     },
 
     dd: {
       content: "inline*",
       defining: true,
       parseDOM: [{tag: "dd"}],
-      toDOM() {return ["dd", 0] }
+      toDOM() { console.log('todom dd'); return ["dd", 0] }
     },
 
     text: {

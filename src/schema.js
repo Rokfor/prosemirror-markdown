@@ -100,7 +100,7 @@ export const schema = new Schema({
     },
 
     dd: {
-      content: "paragraph block*",
+      content: "paragraph block",
       defining: true,
       attrs: {tight: {default: true}},
       parseDOM: [{tag: "dd"}],
